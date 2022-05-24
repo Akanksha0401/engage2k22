@@ -1,0 +1,64 @@
+.navbar-container {
+    width: 70vw;
+    margin: 0 auto;
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        background-color: #0d1117;
+        border-radius: 1rem;
+
+        .nav-logo {
+            a {
+                text-decoration: none;
+                color: #fff;
+            }
+        }
+
+        .nav-items {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+
+            .nav-item {
+                a {
+                    text-decoration: none;
+                    color: #fff;
+                }
+            }
+
+            .btn-register {
+                padding: 0.2rem 1.6rem;
+                background-color: blue;
+                border-radius: 2rem;
+
+                a {
+                    text-decoration: none;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+.footer-container {
+    width: 70vw;
+    margin: 0 auto;
+
+    .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        background-color: #0d1117;
+        border-radius: 1rem;
+
+        .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+}
