@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import Dashboard from './components/dashboard/Dashboard';
 import Discover from './components/home/Discover';
 import Home from './components/home/Home';
 import Register from './components/home/Register';
@@ -11,6 +12,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/discover' element={<Discover />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
     </div>
   );

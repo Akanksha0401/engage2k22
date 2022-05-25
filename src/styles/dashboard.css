@@ -1,0 +1,150 @@
+.dash-container {
+  max-width: 100vw;
+}
+
+.dash-container .dashboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dash-container .dashboard .dash-left {
+  width: 20%;
+  background-color: #0d1117;
+  height: 100vh;
+}
+
+.dash-container .dashboard .dash-left .v-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.dash-container .dashboard .dash-left .v-nav .v-nav-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0.5rem;
+  background-color: #161b22;
+  border-radius: 0.5rem;
+}
+
+.dash-container .dashboard .dash-left .v-nav .btn-logout {
+  padding: 0.5rem;
+  background-color: blue;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.dash-container .dashboard .dash-right {
+  width: 100%;
+}
+
+.dash-container .dashboard .dash-right .dash-top {
+  padding: 1rem;
+}
+
+.dash-container .dashboard .dash-right .dash-top .h-nav {
+  padding: 0.5rem 2rem;
+  background-color: #0d1117;
+  border-radius: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+}
+
+.dash-container .dashboard .dash-right .dash-bottom {
+  padding: 1rem;
+}
+
+.dash-container .dashboard .dash-right .dash-bottom .dash-content {
+  background: #0d1117;
+  border-radius: 0.5rem;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.dash-container .dashboard .dash-right .dash-bottom .dash-content .dash-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1rem 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.dash-container .dashboard .dash-right .dash-bottom .dash-content .dash-title .greet-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.dash-container .dashboard .dash-right .dash-bottom .dash-content .dash-title .date-title {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #161b22;
+}
+
+.dash-container .dashboard .dash-right .dash-bottom .dash-content .btn-attend-container {
+  background-color: #161b22;
+  height: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.dash-container .dashboard .dash-right .dash-bottom .dash-content .btn-attend-container .btn-attend {
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: blue;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .dash-container .dashboard {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .dash-container .dashboard .dash-left {
+    height: auto;
+    width: 100%;
+  }
+  .dash-container .dashboard .dash-left .v-nav {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  .dash-container .dashboard .dash-left .v-nav .v-nav-item {
+    width: 40%;
+  }
+  .dash-container .dashboard .dash-left .v-nav .btn-logout {
+    width: 40%;
+  }
+}
+/*# sourceMappingURL=dashboard.css.map */

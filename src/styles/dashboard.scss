@@ -1,0 +1,126 @@
+.dash-container {
+    max-width: 100vw;
+
+    .dashboard {
+        display: flex;
+
+        .dash-left {
+            width: 20%;
+            background-color: #0d1117;
+            height: 100vh;
+
+            .v-nav {
+                display: flex;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+
+                .v-nav-item {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0.5rem;
+                    background-color: #161b22;
+                    border-radius: 0.5rem;
+                }
+
+                .btn-logout {
+                    padding: 0.5rem;
+                    background-color: blue;
+                    border-radius: 0.5rem;
+                    text-align: center;
+                }
+            }
+        }
+
+        .dash-right {
+            width: 100%;
+
+            .dash-top {
+                padding: 1rem;
+
+                .h-nav {
+                    padding: 0.5rem 2rem;
+                    background-color: #0d1117;
+                    border-radius: 0.5rem;
+                    display: flex;
+                    justify-content: end;
+
+                    .h-nav-item {
+                        // background-color: #0d1117;
+                        // padding: 0.5rem;
+                    }
+                }
+            }
+
+            .dash-bottom {
+                padding: 1rem;
+
+                .dash-content {
+                    background: #0d1117;
+                    border-radius: 0.5rem;
+                    padding: 0 1rem 1rem 1rem;
+
+                    .dash-title {
+                        display: flex;
+                        padding: 1rem 0;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .greet-title {
+                            font-size: 2rem;
+                            font-weight: 700;
+                        }
+
+                        .date-title {
+                            padding: 0.5rem;
+                            border-radius: 0.5rem;
+                            background-color: #161b22;
+                        }
+                    }
+
+                    .btn-attend-container {
+                        background-color: #161b22;
+                        height: 400px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 0.5rem;
+
+                        .btn-attend {
+                            border-radius: 0.5rem;
+                            padding: 0.5rem 1rem;
+                            background-color: blue;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .dash-container {
+        .dashboard {
+            flex-direction: column;
+
+            .dash-left {
+                height: auto;
+                width: 100%;
+
+                .v-nav {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+
+                    .v-nav-item {
+                        width: 40%;
+                    }
+
+                    .btn-logout {
+                        width: 40%;
+                    }
+                }
+            }
+        }
+    }
+}
