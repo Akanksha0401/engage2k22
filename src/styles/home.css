@@ -176,6 +176,7 @@
   border-radius: 0.5rem;
   margin-bottom: 0.6rem;
   font-family: 'Poppins', sans-serif;
+  cursor: pointer;
 }
 
 .login-container .login .login-right .login-form .login-form-content .form-text {

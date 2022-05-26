@@ -26,6 +26,11 @@
   gap: 1rem;
 }
 
+.dash-container .dashboard .dash-left .v-nav a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .dash-container .dashboard .dash-left .v-nav .v-nav-item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -112,6 +117,11 @@
       -ms-flex-pack: center;
           justify-content: center;
   border-radius: 0.5rem;
+}
+
+.dash-container .dashboard .dash-right .dash-bottom .dash-content .btn-attend-container a {
+  text-decoration: none;
+  color: #fff;
 }
 
 .dash-container .dashboard .dash-right .dash-bottom .dash-content .btn-attend-container .btn-attend {

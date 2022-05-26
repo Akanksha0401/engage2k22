@@ -15,6 +15,11 @@
                 padding: 1rem;
                 gap: 1rem;
 
+                a {
+                    text-decoration: none;
+                    color: #fff;
+                }
+
                 .v-nav-item {
                     display: flex;
                     justify-content: space-between;
@@ -85,6 +90,11 @@
                         align-items: center;
                         justify-content: center;
                         border-radius: 0.5rem;
+
+                        a {
+                            text-decoration: none;
+                            color: #fff;
+                        }
 
                         .btn-attend {
                             border-radius: 0.5rem;

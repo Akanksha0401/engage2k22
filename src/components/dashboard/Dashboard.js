@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import '../../styles/dashboard.css'
 
 const Dashboard = () => {
@@ -7,20 +8,26 @@ const Dashboard = () => {
             <div className='dashboard'>
                 <div className='dash-left'>
                     <div className='v-nav'>
-                        <div className='v-nav-item'>
-                            <div className='v-nav-item-text'>
-                                Add Student
+                        <Link to='/add-student'>
+                            <div className='v-nav-item'>
+                                <div className='v-nav-item-text'>
+                                    Add Student
+                                </div>
+                                <svg width="26" height="26" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75S17.376 2.25 12 2.25Zm4.5 10.5h-3.75v3.75h-1.5v-3.75H7.5v-1.5h3.75V7.5h1.5v3.75h3.75v1.5Z"></path>
+                                </svg>
                             </div>
-                            <svg width="26" height="26" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75S17.376 2.25 12 2.25Zm4.5 10.5h-3.75v3.75h-1.5v-3.75H7.5v-1.5h3.75V7.5h1.5v3.75h3.75v1.5Z"></path>
-                            </svg>
-                        </div>
-                        <div className='v-nav-item'>
-                            Past Attendance
-                        </div>
-                        <div className='btn-logout'>
-                            Logout
-                        </div>
+                        </Link>
+                        <Link to='/past-attendance'>
+                            <div className='v-nav-item'>
+                                Past Attendance
+                            </div>
+                        </Link>
+                        <Link to='/'>
+                            <div className='btn-logout'>
+                                Logout
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div className='dash-right'>
@@ -55,9 +62,11 @@ const Dashboard = () => {
                                 </div>
                             </div>
                             <div className='btn-attend-container'>
-                                <div className='btn-attend'>
-                                    Mark Attendance
-                                </div>
+                                <Link to='/mark-attendance'>
+                                    <div className='btn-attend'>
+                                        Mark Attendance
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -30,6 +30,14 @@ const Register = () => {
                             <input type='text' />
                         </div>
                         <div className='reg-form-group'>
+                            <label>Designantion</label>
+                            <input type='text' />
+                        </div>
+                        <div className='reg-form-group'>
+                            <label>Department</label>
+                            <input type='text' />
+                        </div>
+                        <div className='reg-form-group'>
                             <label>Email Id</label>
                             <input type='text' />
                         </div>

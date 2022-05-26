@@ -1,8 +1,14 @@
 import React from 'react'
+import Footer from './Footer'
+import Navbar from './Navbar'
 
 const Discover = () => {
     return (
-        <div>Discover</div>
+        <div>
+            <Navbar />
+            Discover
+            <Footer />
+        </div>
     )
 }
 
