@@ -9,6 +9,7 @@ const AddStudent = () => {
     const [email, setEmail] = useState('')
     const [rollNo, setRollNo] = useState('')
     const [libId, setLibId] = useState('')
+    const [attendance, setAttendance] = useState(0)
 
     const nav = useNavigate()
 
@@ -20,7 +21,8 @@ const AddStudent = () => {
                 lastName,
                 email,
                 rollNo,
-                libId
+                libId,
+                attendance: 0
             }
             await push(studentRef, student)
             setFirstName('')
