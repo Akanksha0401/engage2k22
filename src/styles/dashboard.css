@@ -84,6 +84,10 @@
           justify-content: end;
 }
 
+.dash-container .dashboard .dash-right .dash-top .h-nav .h-nav-item .profile {
+  cursor: pointer;
+}
+
 .dash-container .dashboard .dash-right .dash-bottom {
   padding: 1rem;
 }

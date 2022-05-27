@@ -63,8 +63,9 @@
                     justify-content: end;
 
                     .h-nav-item {
-                        // background-color: #0d1117;
-                        // padding: 0.5rem;
+                        .profile {
+                            cursor: pointer;
+                        }
                     }
                 }
             }
