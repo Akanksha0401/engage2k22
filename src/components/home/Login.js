@@ -1,3 +1,4 @@
+import { position, useToast } from '@chakra-ui/react'
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -7,24 +8,53 @@ const Login = () => {
     const [logEmail, setLogEmail] = useState('')
     const [logPass, setLogPass] = useState('')
 
+    const toast = useToast()
+
     const nav = useNavigate()
 
     const login = async () => {
         if (logEmail && logPass) {
-            try {
-                await signInWithEmailAndPassword(
-                    auth,
-                    logEmail,
-                    logPass
-                )
-                setLogEmail('')
-                setLogPass('')
-                nav('/dashboard')
-            } catch (error) {
-                alert('Something went wrong.')
+            if (logEmail.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+                try {
+                    await signInWithEmailAndPassword(
+                        auth,
+                        logEmail,
+                        logPass
+                    )
+                    setLogEmail('')
+                    setLogPass('')
+                    nav('/dashboard')
+                    toast({
+                        title: 'Logged In!',
+                        status: 'success',
+                        duration: 5000,
+                        position: 'bottom-right'
+                    })
+                } catch (error) {
+                    toast({
+                        title: 'Incorrect Credentials!',
+                        description: 'Please enter correct email and password.',
+                        status: 'error',
+                        duration: 5000,
+                        position: 'bottom-right'
+                    })
+                }
+            } else {
+                toast({
+                    title: 'Invalid email address',
+                    status: 'warning',
+                    duration: '5000',
+                    position: 'bottom-right'
+                })
             }
         } else {
-            alert('Fill all the fields')
+            toast({
+                title: 'Fields Required!',
+                description: 'Please enter Email and Password.',
+                status: 'warning',
+                duration: 5000,
+                position: 'bottom-right'
+            })
         }
     }
 
@@ -32,8 +62,20 @@ const Login = () => {
         try {
             await signInWithPopup(auth, provider)
             nav('/dashboard')
+            toast({
+                title: 'Logged In!',
+                status: 'success',
+                duration: 5000,
+                position: 'bottom-right'
+            })
         } catch (error) {
-            alert('Something went wrong.')
+            toast({
+                title: 'Something went wrong!',
+                description: 'Sorry for the inconvinience. Try Again!',
+                status: 'error',
+                duration: 5000,
+                position: 'bottom-right'
+            })
         }
     }
 
@@ -51,7 +93,9 @@ const Login = () => {
                         <div className='login-form-content'>
                             <div className='form-group'>
                                 <label>Email Id</label>
-                                <input type='text' placeholder='you@example.com'
+                                <input type='email'
+                                    pattern="[^ @]*@[^ @]*"
+                                    placeholder='you@example.com'
                                     onChange={(e) => {
                                         setLogEmail(e.target.value)
                                     }}

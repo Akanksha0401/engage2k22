@@ -7,7 +7,7 @@ const Navbar = () => {
             <div className='navbar'>
                 <div className='nav-logo'>
                     <Link to='/'>
-                        Home
+                        Attendance Tracker
                     </Link>
                 </div>
                 <div className='nav-items'>

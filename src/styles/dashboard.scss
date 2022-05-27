@@ -198,6 +198,21 @@
                     }
                 }
             }
+
+            .dash-right {
+                .dash-bottom {
+                    .dash-content {
+                        .dash-title {
+                            flex-direction: column;
+                            gap: 1em;
+
+                            .greet-title {
+                                font-size: 1.2rem;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

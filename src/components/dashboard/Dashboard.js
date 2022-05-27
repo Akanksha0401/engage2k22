@@ -1,3 +1,4 @@
+import { position, useToast } from '@chakra-ui/react'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -7,11 +8,29 @@ import '../../styles/dashboard.css'
 const Dashboard = () => {
     const [user, setUser] = useState({})
 
+    const toast = useToast()
+
     const nav = useNavigate()
 
     const logout = async () => {
-        await signOut(auth)
-        nav('/')
+        try {
+            await signOut(auth)
+            nav('/')
+            toast({
+                title: 'Logged out successfully!',
+                status: 'success',
+                duration: 5000,
+                position: 'bottom-right'
+            })
+        } catch (error) {
+            toast({
+                title: 'Something went wrong!',
+                description: 'Sorry for the inconvinience.',
+                status: 'error',
+                duration: 5000,
+                position: 'bottom-right'
+            })
+        }
     }
 
     useEffect(() => {

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { push, ref } from 'firebase/database'
 import { auth, db } from '../../assets/config/config'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { useToast } from '@chakra-ui/react'
 
 const Register = () => {
     const [firstName, setFirstName] = useState('')
@@ -14,45 +15,80 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
+    const toast = useToast()
+
     const nav = useNavigate()
 
     const register = async () => {
         if (firstName && lastName && designation && department && email && password && confirmPassword) {
             if (password === confirmPassword) {
-                const facultyRef = ref(db, 'Faculty')
-                const faculty = {
-                    firstName,
-                    lastName,
-                    designation,
-                    department,
-                    email,
-                    password
-                }
-                await push(facultyRef, faculty)
-
-                try {
-                    const user = await createUserWithEmailAndPassword(
-                        auth,
+                if (email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+                    const facultyRef = ref(db, 'Faculty')
+                    const faculty = {
+                        firstName,
+                        lastName,
+                        designation,
+                        department,
                         email,
                         password
-                    )
-                    nav('/dashboard')
-                } catch (error) {
-                    console.log(error.message)
-                }
+                    }
+                    await push(facultyRef, faculty)
 
-                setFirstName('')
-                setLastName('')
-                setDesignation('')
-                setDepartment('')
-                setEmail('')
-                setPassword('')
-                setConfirmPassword('')
+                    try {
+                        const user = await createUserWithEmailAndPassword(
+                            auth,
+                            email,
+                            password
+                        )
+                        nav('/dashboard')
+                        toast({
+                            title: 'User Registered!',
+                            status: 'success',
+                            duration: 5000,
+                            position: 'bottom-right'
+                        })
+                    } catch (error) {
+                        toast({
+                            title: 'Something went wrong!',
+                            description: 'Sorry for the inconvinience. Try Again!',
+                            status: 'error',
+                            duration: 5000,
+                            position: 'bottom-right'
+                        })
+                    }
+
+                    setFirstName('')
+                    setLastName('')
+                    setDesignation('')
+                    setDepartment('')
+                    setEmail('')
+                    setPassword('')
+                    setConfirmPassword('')
+                } else {
+                    toast({
+                        title: 'Invalid email address',
+                        status: 'warning',
+                        duration: '5000',
+                        position: 'bottom-right'
+                    })
+                }
             } else {
-                alert('Passwords do not match')
+                toast({
+                    title: 'Passwords do not match',
+                    description: 'Please enter matching passwords.',
+                    status: 'warning',
+                    duration: 5000,
+                    position: 'bottom-right'
+                })
             }
         } else {
-            alert('Input all fields')
+            toast({
+                title: 'Fields Required!',
+                description: 'Please enter all the details.',
+                status: 'warning',
+                duration: 5000,
+                position: 'bottom-right'
+            })
         }
     }
 

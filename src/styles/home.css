@@ -324,6 +324,7 @@
   }
   .login-container {
     width: 96vw;
+    height: auto;
   }
   .login-container .login {
     -webkit-box-orient: vertical;

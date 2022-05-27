@@ -221,6 +221,16 @@
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
   }
+  .dash-container .dashboard .dash-right .dash-bottom .dash-content .dash-title {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 1em;
+  }
+  .dash-container .dashboard .dash-right .dash-bottom .dash-content .dash-title .greet-title {
+    font-size: 1.2rem;
+  }
   .add-student-container .add-student .add-container {
     width: 90vw;
   }

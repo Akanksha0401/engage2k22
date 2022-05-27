@@ -45,7 +45,7 @@
 
 .login-container {
     width: 70vw;
-    // height: 780px;
+    // height: 500px;
     margin: 1rem auto;
     border-radius: 1rem;
     display: flex;
@@ -278,6 +278,7 @@
 
     .login-container {
         width: 96vw;
+        height: auto;
 
         .login {
             flex-direction: column;
