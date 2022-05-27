@@ -1,8 +1,25 @@
 import Footer from '../home/Footer'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Register = () => {
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [designation, setDesignation] = useState('')
+    const [department, setDepartment] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+
+    const register = () => {
+
+    }
+
+    useEffect(() => {
+
+    }, [])
+
+
     return (
         <div className='register-container'>
             <div className='navbar-container'>
@@ -23,38 +40,76 @@ const Register = () => {
                     <div className='reg-form-content'>
                         <div className='reg-form-group'>
                             <label>First Name</label>
-                            <input type='text' />
+                            <input
+                                type='text'
+                                placeholder='First Name'
+                                onChange={(e) => {
+                                    setFirstName(e.target.value)
+                                }}
+                            />
                         </div>
                         <div className='reg-form-group'>
                             <label>Last Name</label>
-                            <input type='text' />
+                            <input type='text'
+                                placeholder='Last Name'
+                                onChange={(e) => {
+                                    setLastName(e.target.value)
+                                }}
+                            />
                         </div>
                         <div className='reg-form-group'>
                             <label>Designantion</label>
-                            <input type='text' />
+                            <input type='text'
+                                placeholder='Designation'
+                                onChange={(e) => {
+                                    setDesignation(e.target.value)
+                                }}
+                            />
                         </div>
                         <div className='reg-form-group'>
                             <label>Department</label>
-                            <input type='text' />
+                            <input type='text'
+                                placeholder='Department'
+                                onChange={(e) => {
+                                    setDepartment(e.target.value)
+                                }} />
                         </div>
                         <div className='reg-form-group'>
                             <label>Email Id</label>
-                            <input type='text' />
+                            <input type='email'
+                                placeholder='email@exapmle.com'
+                                onChange={(e) => {
+                                    setEmail(e.target.value)
+                                }} />
                         </div>
                         <div className='reg-form-group'>
                             <label>Password</label>
-                            <input type='text' />
+                            <input type='password'
+                                placeholder='Password'
+                                onChange={(e) => {
+                                    setPassword(e.target.value)
+                                }} />
                         </div>
                         <div className='reg-form-group'>
                             <label>Confirm Password</label>
-                            <input type='text' />
+                            <input type='password'
+                                placeholder='Confirm Password'
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value)
+                                }} />
                         </div>
-                        <div className='reg-form-group'>
+                        {/* <div className='reg-form-group'>
                             <input type='checkbox' />
                             <label>Agree to terms and conditions.</label>
-                        </div>
+                        </div> */}
                         <div className='reg-form-group'>
-                            <input type='submit' value='Register' />
+                            <input
+                                type='submit'
+                                value='Register'
+                                onClick={() => {
+                                    register()
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
