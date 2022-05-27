@@ -131,6 +131,77 @@
   cursor: pointer;
 }
 
+.add-student-container .add-student .add-container {
+  width: 70vw;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.add-student-container .add-student .add-container .add-form {
+  width: 300px;
+}
+
+.add-student-container .add-student .add-container .add-form .add-form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.add-student-container .add-student .add-container .add-form .add-form-content .add-form-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.5rem;
+}
+
+.add-student-container .add-student .add-container .add-form .add-form-content .add-form-group label {
+  font-size: 0.9rem;
+  font-weight: 200;
+}
+
+.add-student-container .add-student .add-container .add-form .add-form-content .add-form-group input {
+  padding: 0.6rem 1rem;
+  background-color: #0d1117;
+  border: none;
+  color: #fff;
+  border-radius: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.add-student-container .add-student .add-container .add-form .add-form-content .add-form-group input:focus {
+  outline: none;
+}
+
+.add-student-container .add-student .add-container .add-form .add-form-content .btn-add-student {
+  padding: 1rem 0;
+}
+
+.add-student-container .add-student .add-container .add-form .add-form-content .btn-add-student input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background-color: blue;
+  border: none;
+  color: #fff;
+  border-radius: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .dash-container .dashboard {
     -webkit-box-orient: vertical;
@@ -149,6 +220,12 @@
             flex-direction: row;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+  }
+  .add-student-container .add-student .add-container {
+    width: 90vw;
+  }
+  .add-student-container .add-student .add-container .add-form {
+    width: 100%;
   }
 }
 /*# sourceMappingURL=dashboard.css.map */

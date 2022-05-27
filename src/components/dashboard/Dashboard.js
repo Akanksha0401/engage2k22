@@ -1,8 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { auth } from '../../assets/config/config'
 import '../../styles/dashboard.css'
 
 const Dashboard = () => {
+    const [user, setUser] = useState({})
+
+    const nav = useNavigate()
+
+    const logout = async () => {
+        await signOut(auth)
+        nav('/')
+    }
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser)
+        })
+    }, [])
+
+
     return (
         <div className='dash-container'>
             <div className='dashboard'>
@@ -23,11 +41,13 @@ const Dashboard = () => {
                                 Past Attendance
                             </div>
                         </Link>
-                        <Link to='/'>
-                            <div className='btn-logout'>
-                                Logout
-                            </div>
-                        </Link>
+                        <div className='btn-logout'
+                            onClick={() => {
+                                logout()
+                            }}
+                        >
+                            Logout
+                        </div>
                     </div>
                 </div>
                 <div className='dash-right'>
@@ -45,7 +65,7 @@ const Dashboard = () => {
                         <div className='dash-content'>
                             <div className='dash-title'>
                                 <div className='greet-title'>
-                                    Welcome Akanksha.
+                                    Welcome {user?.email}.
                                 </div>
                                 <div className='date-title'>
                                     {

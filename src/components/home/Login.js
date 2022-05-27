@@ -1,7 +1,42 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { auth, provider } from '../../assets/config/config'
 
 const Login = () => {
+    const [logEmail, setLogEmail] = useState('')
+    const [logPass, setLogPass] = useState('')
+
+    const nav = useNavigate()
+
+    const login = async () => {
+        if (logEmail && logPass) {
+            try {
+                await signInWithEmailAndPassword(
+                    auth,
+                    logEmail,
+                    logPass
+                )
+                setLogEmail('')
+                setLogPass('')
+                nav('/dashboard')
+            } catch (error) {
+                alert('Something went wrong.')
+            }
+        } else {
+            alert('Fill all the fields')
+        }
+    }
+
+    const signInWithGoogle = async () => {
+        try {
+            await signInWithPopup(auth, provider)
+            nav('/dashboard')
+        } catch (error) {
+            alert('Something went wrong.')
+        }
+    }
+
     return (
         <div className='login-container'>
             <div className='login'>
@@ -16,26 +51,42 @@ const Login = () => {
                         <div className='login-form-content'>
                             <div className='form-group'>
                                 <label>Email Id</label>
-                                <input type='text' placeholder='you@example.com' />
+                                <input type='text' placeholder='you@example.com'
+                                    onChange={(e) => {
+                                        setLogEmail(e.target.value)
+                                    }}
+                                />
                             </div>
                             <div className='form-group'>
                                 <label>Password</label>
-                                <input type='text' placeholder='Password' />
+                                <input type='password' placeholder='Password'
+                                    onChange={(e) => {
+                                        setLogPass(e.target.value)
+                                    }}
+                                />
                             </div>
-                            <div className='login-chkbox'>
+                            {/* <div className='login-chkbox'>
                                 <input type='checkbox' />
                                 <label>Remember Me</label>
+                            </div> */}
+                            <div className='btn-login'>
+                                <input
+                                    type='submit'
+                                    value='Login'
+                                    onClick={() => {
+                                        login()
+                                    }}
+                                />
                             </div>
-                            <Link to='/dashboard'>
-                                <div className='btn-login'>
-                                    <input type='submit' value='Login' />
-                                </div>
-                            </Link>
                             <div className='form-text'>
                                 Don't have an account? <Link to='Register'>Register</Link>
                             </div>
                         </div>
-                        <div className='login-google'>
+                        <div className='login-google'
+                            onClick={() => {
+                                signInWithGoogle()
+                            }}
+                        >
                             <div className='google-text'>
                                 Login with
                             </div>

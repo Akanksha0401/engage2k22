@@ -167,6 +167,10 @@
   font-weight: 200;
 }
 
+.login-container .login .login-right .login-form .login-form-content .btn-login {
+  padding: 1rem 0;
+}
+
 .login-container .login .login-right .login-form .login-form-content .btn-login input {
   width: 100%;
   padding: 0.6rem 1rem;

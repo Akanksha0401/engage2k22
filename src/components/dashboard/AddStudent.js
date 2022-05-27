@@ -1,7 +1,39 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { push, ref } from 'firebase/database'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { db } from '../../assets/config/config'
 
 const AddStudent = () => {
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [email, setEmail] = useState('')
+    const [rollNo, setRollNo] = useState('')
+    const [libId, setLibId] = useState('')
+
+    const nav = useNavigate()
+
+    const addStudent = async () => {
+        if (firstName && lastName && email && rollNo && libId) {
+            const studentRef = ref(db, 'Students')
+            const student = {
+                firstName,
+                lastName,
+                email,
+                rollNo,
+                libId
+            }
+            await push(studentRef, student)
+            setFirstName('')
+            setLastName('')
+            setEmail('')
+            setRollNo('')
+            setLibId('')
+            nav('/dashboard')
+        } else {
+            alert('Fill all the fields.')
+        }
+    }
+
     return (
         <div className='add-student-container'>
             <div className='add-student'>
@@ -23,26 +55,55 @@ const AddStudent = () => {
                         <div className='add-form-content'>
                             <div className='add-form-group'>
                                 <label>First Name</label>
-                                <input type='text' />
+                                <input type='text'
+                                    placeholder='First Name'
+                                    onChange={(e) => {
+                                        setFirstName(e.target.value)
+                                    }}
+                                />
                             </div>
                             <div className='add-form-group'>
                                 <label>Last Name</label>
-                                <input type='text' />
+                                <input type='text'
+                                    placeholder='Last Name'
+                                    onChange={(e) => {
+                                        setLastName(e.target.value)
+                                    }}
+                                />
                                 <div className='add-form-group'>
                                     <label>Email Id</label>
-                                    <input type='text' />
+                                    <input type='text'
+                                        placeholder='email@example.com'
+                                        onChange={(e) => {
+                                            setEmail(e.target.value)
+                                        }}
+                                    />
                                 </div>
                             </div>
                             <div className='add-form-group'>
                                 <label>University Roll Number</label>
-                                <input type='text' />
+                                <input type='text'
+                                    placeholder='University Roll Number'
+                                    onChange={(e) => {
+                                        setRollNo(e.target.value)
+                                    }}
+                                />
                             </div>
                             <div className='add-form-group'>
                                 <label>Library Id</label>
-                                <input type='text' />
+                                <input type='text'
+                                    placeholder='Library Id'
+                                    onChange={(e) => {
+                                        setLibId(e.target.value)
+                                    }}
+                                />
                             </div>
-                            <div className='add-form-group'>
-                                <input type='submit' value='Add' />
+                            <div className='btn-add-student'>
+                                <input type='submit' value='Add'
+                                    onClick={() => {
+                                        addStudent()
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>

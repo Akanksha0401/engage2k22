@@ -109,6 +109,73 @@
     }
 }
 
+.add-student-container {
+    .add-student {
+        .add-container {
+            width: 70vw;
+            // height: 80vh;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .add-form {
+                width: 300px;
+
+                .add-form-title {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    text-align: center;
+                    padding-bottom: 1rem;
+                }
+
+                .add-form-content {
+                    .add-form-group {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5rem;
+
+                        label {
+                            font-size: 0.9rem;
+                            font-weight: 200;
+                        }
+
+                        input {
+                            padding: 0.6rem 1rem;
+                            background-color: #0d1117;
+                            border: none;
+                            color: #fff;
+                            border-radius: 0.5rem;
+                            margin-bottom: 0.6rem;
+                            font-family: 'Poppins', sans-serif;
+
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+                    }
+
+                    .btn-add-student {
+                        padding: 1rem 0;
+
+                        input {
+                            width: 100%;
+                            padding: 0.6rem 1rem;
+                            background-color: blue;
+                            border: none;
+                            color: #fff;
+                            border-radius: 0.5rem;
+                            margin-bottom: 0.6rem;
+                            font-family: 'Poppins', sans-serif;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 768px) {
     .dash-container {
         .dashboard {
@@ -129,6 +196,18 @@
                     .btn-logout {
                         // width: 40%;
                     }
+                }
+            }
+        }
+    }
+
+    .add-student-container {
+        .add-student {
+            .add-container {
+                width: 90vw;
+
+                .add-form {
+                    width: 100%;
                 }
             }
         }
