@@ -150,11 +150,5 @@
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
   }
-  .dash-container .dashboard .dash-left .v-nav .v-nav-item {
-    width: 40%;
-  }
-  .dash-container .dashboard .dash-left .v-nav .btn-logout {
-    width: 40%;
-  }
 }
 /*# sourceMappingURL=dashboard.css.map */

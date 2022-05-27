@@ -211,6 +211,77 @@
   font-size: 1rem;
 }
 
+.register-container .reg-container {
+  width: 70vw;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.register-container .reg-container .reg-form {
+  width: 300px;
+}
+
+.register-container .reg-container .reg-form .reg-form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.register-container .reg-container .reg-form .reg-form-content .reg-form-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.5rem;
+}
+
+.register-container .reg-container .reg-form .reg-form-content .reg-form-group label {
+  font-size: 0.9rem;
+  font-weight: 200;
+}
+
+.register-container .reg-container .reg-form .reg-form-content .reg-form-group input {
+  padding: 0.6rem 1rem;
+  background-color: #0d1117;
+  border: none;
+  color: #fff;
+  border-radius: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.register-container .reg-container .reg-form .reg-form-content .reg-form-group input:focus {
+  outline: none;
+}
+
+.register-container .reg-container .reg-form .reg-form-content .btn-reg {
+  padding: 1rem 0;
+}
+
+.register-container .reg-container .reg-form .reg-form-content .btn-reg input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background-color: blue;
+  border: none;
+  color: #fff;
+  border-radius: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
 .footer-container {
   width: 100vw;
   margin: 0 auto;
@@ -261,6 +332,12 @@
     height: 250px;
   }
   .login-container .login .login-right {
+    width: 100%;
+  }
+  .register-container .reg-container {
+    width: 90vw;
+  }
+  .register-container .reg-container .reg-form {
     width: 100%;
   }
   .footer-container .footer {

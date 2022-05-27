@@ -1,6 +1,9 @@
 import Footer from '../home/Footer'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { push, ref } from 'firebase/database'
+import { auth, db } from '../../assets/config/config'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 const Register = () => {
     const [firstName, setFirstName] = useState('')
@@ -11,8 +14,46 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const register = () => {
+    const nav = useNavigate()
 
+    const register = async () => {
+        if (firstName && lastName && designation && department && email && password && confirmPassword) {
+            if (password === confirmPassword) {
+                const facultyRef = ref(db, 'Faculty')
+                const faculty = {
+                    firstName,
+                    lastName,
+                    designation,
+                    department,
+                    email,
+                    password
+                }
+                await push(facultyRef, faculty)
+
+                try {
+                    const user = await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    )
+                    nav('/dashboard')
+                } catch (error) {
+                    console.log(error.message)
+                }
+
+                setFirstName('')
+                setLastName('')
+                setDesignation('')
+                setDepartment('')
+                setEmail('')
+                setPassword('')
+                setConfirmPassword('')
+            } else {
+                alert('Passwords do not match')
+            }
+        } else {
+            alert('Input all fields')
+        }
     }
 
     useEffect(() => {
@@ -102,7 +143,7 @@ const Register = () => {
                             <input type='checkbox' />
                             <label>Agree to terms and conditions.</label>
                         </div> */}
-                        <div className='reg-form-group'>
+                        <div className='btn-reg'>
                             <input
                                 type='submit'
                                 value='Register'
