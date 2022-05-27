@@ -1,5 +1,5 @@
 .navbar-container {
-  width: 100vw;
+  max-width: 100vw;
   margin: 0 auto;
 }
 
@@ -34,7 +34,7 @@
 
 .navbar-container .navbar .nav-items .nav-item a {
   text-decoration: none;
-  color: #fff;
+  color: blue;
 }
 
 .navbar-container .navbar .nav-items .btn-register {
@@ -50,6 +50,7 @@
 
 .login-container {
   width: 70vw;
+  height: 500px;
   margin: 1rem auto;
   border-radius: 1rem;
   display: -webkit-box;
@@ -180,7 +181,20 @@
   border-radius: 0.5rem;
   margin-bottom: 0.6rem;
   font-family: 'Poppins', sans-serif;
+  font-weight: 600;
   cursor: pointer;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.login-container .login .login-right .login-form .login-form-content .btn-login input:hover {
+  background: #8181ff;
+  color: blue;
+}
+
+.login-container .login .login-right .login-form .login-form-content .btn-login input:active {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .login-container .login .login-right .login-form .login-form-content .form-text {
@@ -209,6 +223,11 @@
   padding: 0.6rem 1rem;
   background-color: #0d1117;
   border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.login-container .login .login-right .login-form .login-google:hover {
+  background-color: #8181ff;
 }
 
 .login-container .login .login-right .login-form .login-google .google-text {
@@ -237,7 +256,7 @@
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  padding-bottom: 1rem;
+  padding: 1rem;
 }
 
 .register-container .reg-container .reg-form .reg-form-content .reg-form-group {
@@ -283,11 +302,24 @@
   border-radius: 0.5rem;
   margin-bottom: 0.6rem;
   font-family: 'Poppins', sans-serif;
+  font-weight: 600;
   cursor: pointer;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.register-container .reg-container .reg-form .reg-form-content .btn-reg input:hover {
+  background: #8181ff;
+  color: blue;
+}
+
+.register-container .reg-container .reg-form .reg-form-content .btn-reg input:active {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .footer-container {
-  width: 100vw;
+  max-width: 100vw;
   margin: 0 auto;
 }
 

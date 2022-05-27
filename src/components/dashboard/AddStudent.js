@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react'
 import { push, ref } from 'firebase/database'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -13,26 +14,59 @@ const AddStudent = () => {
 
     const nav = useNavigate()
 
+    const toast = useToast()
+
     const addStudent = async () => {
         if (firstName && lastName && email && rollNo && libId) {
-            const studentRef = ref(db, 'Students')
-            const student = {
-                firstName,
-                lastName,
-                email,
-                rollNo,
-                libId,
-                attendance: 0
+            if (email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+                try {
+                    const studentRef = ref(db, 'Students')
+                    const student = {
+                        firstName,
+                        lastName,
+                        email,
+                        rollNo,
+                        libId,
+                        attendance: 0
+                    }
+                    await push(studentRef, student)
+                    setFirstName('')
+                    setLastName('')
+                    setEmail('')
+                    setRollNo('')
+                    setLibId('')
+                    nav('/dashboard')
+                    toast({
+                        title: 'Student Added!',
+                        status: 'success',
+                        duration: 5000,
+                        position: 'bottom-right'
+                    })
+                } catch (error) {
+                    toast({
+                        title: 'Something went wrong!',
+                        description: 'Sorry for the inconvinience. Try Again!',
+                        status: 'error',
+                        duration: 5000,
+                        position: 'bottom-right'
+                    })
+                }
+            } else {
+                toast({
+                    title: 'Invalid email address',
+                    status: 'warning',
+                    duration: '5000',
+                    position: 'bottom-right'
+                })
             }
-            await push(studentRef, student)
-            setFirstName('')
-            setLastName('')
-            setEmail('')
-            setRollNo('')
-            setLibId('')
-            nav('/dashboard')
         } else {
-            alert('Fill all the fields.')
+            toast({
+                title: 'Fields Required!',
+                description: 'Please enter all the details.',
+                status: 'warning',
+                duration: 5000,
+                position: 'bottom-right'
+            })
         }
     }
 
@@ -101,7 +135,9 @@ const AddStudent = () => {
                                 />
                             </div>
                             <div className='btn-add-student'>
-                                <input type='submit' value='Add'
+                                <input
+                                    type='submit'
+                                    value='Add Student'
                                     onClick={() => {
                                         addStudent()
                                     }}

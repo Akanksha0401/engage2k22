@@ -103,7 +103,9 @@ const Login = () => {
                             </div>
                             <div className='form-group'>
                                 <label>Password</label>
-                                <input type='password' placeholder='Password'
+                                <input
+                                    type='password'
+                                    placeholder='Password'
                                     onChange={(e) => {
                                         setLogPass(e.target.value)
                                     }}
