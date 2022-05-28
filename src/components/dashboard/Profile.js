@@ -23,7 +23,7 @@ const Profile = () => {
                     }
                     setFaculty(faculty)
                     for (let id in faculty) {
-                        if (user.email == faculty[id].email) {
+                        if (user.email === faculty[id].email) {
                             setCurrentFaculty(faculty[id])
                         }
                     }

@@ -216,7 +216,7 @@
         .mark-content {
             .cam-container {
                 height: 80vh;
-                width: 100vw;
+                max-width: 100vw;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -243,7 +243,14 @@
                 .btn-mark {
                     cursor: pointer;
                     background-color: blue;
-                    padding: 0.5rem 1rem;
+                    padding: 0.5rem 2rem;
+                    border-radius: 0.5rem;
+                    font-weight: 600;
+
+                    &:hover {
+                        color: blue;
+                        background-color: rgb(129, 129, 255);
+                    }
 
                 }
             }
@@ -309,7 +316,12 @@
                 .cam-container {
                     canvas {
                         width: 100%;
+                        height: auto;
                     }
+                }
+
+                .btn-mark-container {
+                    gap: 1rem;
                 }
             }
         }

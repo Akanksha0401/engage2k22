@@ -1,8 +1,10 @@
 import { useToast } from '@chakra-ui/react'
 import { push, ref } from 'firebase/database'
-import React, { useState } from 'react'
+import { getDownloadURL, listAll, ref as refStorage, uploadBytes } from 'firebase/storage'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { db } from '../../assets/config/config'
+import { db, storage } from '../../assets/config/config'
+import { v4 } from 'uuid'
 
 const AddStudent = () => {
     const [firstName, setFirstName] = useState('')
@@ -11,13 +13,52 @@ const AddStudent = () => {
     const [rollNo, setRollNo] = useState('')
     const [libId, setLibId] = useState('')
     const [attendance, setAttendance] = useState(0)
+    const [image, setImage] = useState(null)
+    const [urlList, setUrlList] = useState([])
 
     const nav = useNavigate()
 
     const toast = useToast()
 
+    const uploadImage = async () => {
+        if (image) {
+            const imageRef = refStorage(storage, `labeled_images/${firstName}/${image.name + v4()}`)
+            await uploadBytes(imageRef, image)
+                .then(() => {
+                    getDownloadURL(imageRef).then((url) => {
+                        // console.log(url)
+                        // let list = []
+                        urlList.push(url)
+                        setUrlList(urlList)
+                    })
+                    toast({
+                        title: 'Image Uploaded!',
+                        status: 'success',
+                        duration: 5000,
+                        position: 'bottom-right'
+                    })
+                })
+                .catch(err => {
+                    toast({
+                        title: 'Cannot upload Image!',
+                        description: 'Something went wrong. Try again!',
+                        status: 'error',
+                        duration: 5000,
+                        position: 'bottom-right'
+                    })
+                })
+        } else {
+            toast({
+                title: 'Image is required!',
+                status: 'warning',
+                duration: 5000,
+                position: 'bottom-right'
+            })
+        }
+    }
+
     const addStudent = async () => {
-        if (firstName && lastName && email && rollNo && libId) {
+        if (firstName && lastName && email && rollNo && libId && image) {
             if (email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
                 try {
                     const studentRef = ref(db, 'Students')
@@ -27,7 +68,8 @@ const AddStudent = () => {
                         email,
                         rollNo,
                         libId,
-                        attendance: 0
+                        attendance: 0,
+                        images: urlList
                     }
                     await push(studentRef, student)
                     setFirstName('')
@@ -131,6 +173,21 @@ const AddStudent = () => {
                                     placeholder='Library Id'
                                     onChange={(e) => {
                                         setLibId(e.target.value)
+                                    }}
+                                />
+                            </div>
+                            <div className='add-form-group'>
+                                <label>Photos (min. 2)</label>
+                                <input type='file'
+                                    onChange={(e) => {
+                                        setImage(e.target.files[0])
+                                    }}
+                                />
+                                <input
+                                    type='submit'
+                                    value='Upload'
+                                    onClick={() => {
+                                        uploadImage()
                                     }}
                                 />
                             </div>

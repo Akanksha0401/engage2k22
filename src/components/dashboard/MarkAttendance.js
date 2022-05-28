@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as faceapi from '@vladmandic/face-api'
 import { Link } from 'react-router-dom'
+import { onValue, ref } from 'firebase/database';
+import { db } from '../../assets/config/config';
 
 const MarkAttendance = () => {
     const videoRef = useRef();
@@ -8,6 +10,11 @@ const MarkAttendance = () => {
 
     const videoHeight = 480;
     const videoWidth = 640;
+
+    const [students, setStudents] = useState([])
+    const [labels, setLabels] = useState([])
+    const [labeledImages, setLabeledImages] = useState([])
+    const [imageArray, setImageArray] = useState([])
 
     const handleVideo = () => {
         setInterval(async () => {
@@ -35,6 +42,8 @@ const MarkAttendance = () => {
                 const drawBox = new faceapi.draw.DrawBox(box, { label: 'Face' })
                 drawBox.draw(canvasRef.current)
             })
+
+            // new faceapi.draw.DrawBox(canvasRef.current, { label: 'Face' })
             // faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections)
         }, 100)
     }
@@ -54,6 +63,44 @@ const MarkAttendance = () => {
                 })
         }
         loadModels()
+
+        const getImages = async () => {
+            const imageRef = ref(db, 'Students')
+            await onValue(imageRef, (snapshot) => {
+                const data = snapshot.val()
+                let students = []
+                for (let id in data) {
+                    students.push({ id, ...data[id] })
+                }
+                // console.log(students)
+                setStudents(students)
+
+                let labels = []
+                for (let id in students) {
+                    labels.push(students[id].firstName)
+                }
+                // console.log(labels)
+                setLabels(labels)
+
+                let labeledImages = []
+                for (let id in students) {
+                    labeledImages.push(students[id].images)
+                }
+                // console.log(labeledImages[0][0])
+                setLabeledImages(labeledImages)
+
+                let imageArray = []
+                for (let i = 0; i < labeledImages.length; i++) {
+                    for (let j = 0; j < labeledImages[i].length; j++) {
+                        imageArray.push(labeledImages[i][j])
+                    }
+                }
+                // console.log(imageArray[5])
+                setImageArray(imageArray)
+                // loadLabeledImages(imageArray)
+            })
+        }
+        getImages()
     }, [])
 
     const triggerVideo = () => {

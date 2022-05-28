@@ -240,7 +240,7 @@
 
 .mark-attendance-container .mark-attendance .mark-content .cam-container {
   height: 80vh;
-  width: 100vw;
+  max-width: 100vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -279,7 +279,14 @@
 .mark-attendance-container .mark-attendance .mark-content .btn-mark-container .btn-mark {
   cursor: pointer;
   background-color: blue;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
+.mark-attendance-container .mark-attendance .mark-content .btn-mark-container .btn-mark:hover {
+  color: blue;
+  background-color: #8181ff;
 }
 
 @media screen and (max-width: 768px) {
@@ -319,6 +326,10 @@
   }
   .mark-attendance-container .mark-attendance .mark-content .cam-container canvas {
     width: 100%;
+    height: auto;
+  }
+  .mark-attendance-container .mark-attendance .mark-content .btn-mark-container {
+    gap: 1rem;
   }
 }
 /*# sourceMappingURL=dashboard.css.map */
