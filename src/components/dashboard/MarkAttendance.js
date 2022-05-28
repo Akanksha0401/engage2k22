@@ -3,6 +3,7 @@ import * as faceapi from '@vladmandic/face-api'
 import { Link } from 'react-router-dom'
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../assets/config/config';
+import { useToast } from '@chakra-ui/react';
 
 const MarkAttendance = () => {
     const videoRef = useRef();
@@ -16,54 +17,9 @@ const MarkAttendance = () => {
     const [labeledImages, setLabeledImages] = useState([])
     const [imageArray, setImageArray] = useState([])
 
-    const handleVideo = () => {
-        setInterval(async () => {
-            const detections = await faceapi
-                .detectAllFaces(
-                    videoRef.current,
-                    new faceapi.SsdMobilenetv1Options()
-                )
-                .withFaceLandmarks()
-                .withFaceExpressions()
+    const toast = useToast()
 
-            canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current)
-            faceapi.matchDimensions(canvasRef.current, {
-                width: videoRef.current.width,
-                height: videoRef.current.height
-            })
-            const resizedDetections = faceapi.resizeResults(detections, {
-                width: videoRef.current.width,
-                height: videoRef.current.height
-            })
-            faceapi.draw.drawDetections(canvasRef.current, resizedDetections)
-            faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections)
-            resizedDetections.forEach(detection => {
-                const box = detection.detection.box
-                const drawBox = new faceapi.draw.DrawBox(box, { label: 'Face' })
-                drawBox.draw(canvasRef.current)
-            })
-
-            // new faceapi.draw.DrawBox(canvasRef.current, { label: 'Face' })
-            // faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections)
-        }, 100)
-    }
-
-    useEffect(() => {
-        const loadModels = async () => {
-            Promise.all([
-                await faceapi.nets.ssdMobilenetv1.load('/models'),
-                await faceapi.nets.ageGenderNet.load('/models'),
-                await faceapi.nets.faceLandmark68Net.load('/models'),
-                await faceapi.nets.faceRecognitionNet.load('/models'),
-                await faceapi.nets.faceExpressionNet.load('/models')
-            ])
-                .then()
-                .catch((err) => {
-                    console.log(err);
-                })
-        }
-        loadModels()
-
+    const loadLabeledImages = async () => {
         const getImages = async () => {
             const imageRef = ref(db, 'Students')
             await onValue(imageRef, (snapshot) => {
@@ -86,22 +42,114 @@ const MarkAttendance = () => {
                 for (let id in students) {
                     labeledImages.push(students[id].images)
                 }
-                // console.log(labeledImages[0][0])
+                // console.log(labeledImages)
                 setLabeledImages(labeledImages)
 
                 let imageArray = []
-                for (let i = 0; i < labeledImages.length; i++) {
-                    for (let j = 0; j < labeledImages[i].length; j++) {
-                        imageArray.push(labeledImages[i][j])
+                for (let i in labeledImages) {
+                    let imgArray = []
+                    for (let j in labeledImages[i]) {
+                        imgArray.push(labeledImages[i][j].substr(68))
                     }
+                    imageArray.push(imgArray)
                 }
-                // console.log(imageArray[5])
                 setImageArray(imageArray)
-                // loadLabeledImages(imageArray)
+                // console.log(imageArray)
+
+                return Promise.all([
+                    labels.map(async (label) => {
+                        const descriptions = []
+                        for (let i in imageArray) {
+                            let desc = []
+                            let refArray = imageArray[i]
+                            for (let j in refArray) {
+                                // console.log(refArray[j])
+                                const img = await faceapi.fetchImage(refArray[j])
+                                const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
+                                desc.push(detections.descriptor)
+                            }
+                            refArray = []
+                            descriptions.push(desc)
+                        }
+                        // console.log(descriptions)
+                        for (let id in descriptions) {
+                            // console.log(descriptions[id])
+                            return new faceapi.LabeledFaceDescriptors(label, descriptions[id])
+                        }
+                    })
+
+                    // imageArray.map(async (image) => {
+                    //     // console.log(image)
+                    //     const descriptions = []
+                    //     for (let i = 0; i < 3; i++) {
+                    //             const img = await faceapi.fetchImage(image)
+                    // const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
+                    // descriptions.push(detections.descriptor)
+                    //     }
+                    //     console.log(descriptions)
+                    // })
+
+                    // labels.map(async (label) => {
+                    // const descriptions = []
+
+                    // const img = await faceapi.fetchImage(image[i])
+                    //     const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
+                    //     descriptions.push(detections.descriptor)
+
+                    // }
+                    // console.log(descriptions)
+                    // console.log(label)
+                    // if (descriptions) {
+                    //     toast({
+                    //         title: "Dataset Created!",
+                    //         status: "success",
+                    //         duration: 2000,
+                    //         position: 'bottom-right'
+                    //     })
+                    // }
+
+                    // })
+                ])
             })
         }
         getImages()
-    }, [])
+    }
+
+    const handleVideo = () => {
+        setInterval(async () => {
+            const labeledFaceDescriptors = await loadLabeledImages()
+            const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
+
+            const detections = await faceapi
+                .detectAllFaces(
+                    videoRef.current,
+                    new faceapi.SsdMobilenetv1Options()
+                )
+                .withFaceLandmarks()
+                .withFaceDescriptors()
+
+            canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current)
+
+            faceapi.matchDimensions(canvasRef.current, {
+                width: videoRef.current.width,
+                height: videoRef.current.height
+            })
+            const resizedDetections = faceapi.resizeResults(detections, {
+                width: videoRef.current.width,
+                height: videoRef.current.height
+            })
+            faceapi.draw.drawDetections(canvasRef.current, resizedDetections)
+            faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections)
+
+            const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
+
+            results.forEach((result, i) => {
+                const box = resizedDetections[i].detection.box
+                const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
+                drawBox.draw(canvasRef.current)
+            })
+        }, 100)
+    }
 
     const triggerVideo = () => {
         if (videoRef.current.paused) {
@@ -130,6 +178,24 @@ const MarkAttendance = () => {
                 handleVideo()
             })
     }
+
+    useEffect(() => {
+        const loadModels = async () => {
+            Promise.all([
+                await faceapi.nets.ssdMobilenetv1.load('/models'),
+                await faceapi.nets.ageGenderNet.load('/models'),
+                await faceapi.nets.faceLandmark68Net.load('/models'),
+                await faceapi.nets.faceRecognitionNet.load('/models'),
+                await faceapi.nets.faceExpressionNet.load('/models')
+            ])
+                .then()
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+        loadModels()
+        loadLabeledImages()
+    }, [])
 
     return (
         <div className='mark-attendance-container'>
