@@ -22,12 +22,12 @@ Your system must have:
 
 ### Steps
 
-- Fork [this](https://github.com/Akanksha0401/engage2k22) repository and open with [Github Desktop](x-github-client://openRepo/https://github.com/Akanksha0401/engage2k22) or clone this repository.
+- Fork [this](https://github.com/Akanksha0401/engage2k22) repository and open with [Github Desktop](https://desktop.github.com/) or clone this repository.
 
 ```bash
     git clone https://github.com/Akanksha0401/engage2k22.git
 ```
-- Navigate to the cloned folder (engage2k22) and open with the code editor(VS Code).
+- Navigate to the cloned folder (engage2k22) and open it with the code editor(VS Code).
 
 - Press `Ctrl + Shift + ~ ` to open new Terminal window in VS Code.
 
