@@ -38,6 +38,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  gap: 0.5rem;
   padding: 0.5rem;
   background-color: #161b22;
   border-radius: 0.5rem;
@@ -231,6 +232,35 @@
 .add-student-container .add-student .add-container .add-form .add-form-content .btn-add-student input:active {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+}
+
+.profile-container .profile .profile-content-container {
+  height: 100vh;
+}
+
+.mark-attendance-container .mark-attendance .mark-content .cam-container {
+  height: 80vh;
+  width: 100vw;
+}
+
+.mark-attendance-container .mark-attendance .mark-content .btn-mark-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 4rem;
+  padding: 2rem 0;
+}
+
+.mark-attendance-container .mark-attendance .mark-content .btn-mark-container .btn-mark {
+  cursor: pointer;
+  background-color: blue;
+  padding: 0.5rem 1rem;
 }
 
 @media screen and (max-width: 768px) {

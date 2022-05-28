@@ -20,12 +20,12 @@ const MarkAttendance = () => {
 
                     </div>
                     <div className='btn-mark-container'>
-                        <div className='btn-mark'>
+                        <button className='btn-mark'>
                             Start Marking
-                        </div>
-                        <div className='btn-mark'>
+                        </button>
+                        <button className='btn-mark'>
                             Stop Marking
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>

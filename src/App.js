@@ -3,6 +3,7 @@ import AddStudent from './components/dashboard/AddStudent';
 import Dashboard from './components/dashboard/Dashboard';
 import MarkAttendance from './components/dashboard/MarkAttendance';
 import PastAttendance from './components/dashboard/PastAttendance';
+import Profile from './components/dashboard/Profile';
 import Discover from './components/home/Discover';
 import Home from './components/home/Home';
 import Register from './components/home/Register';
@@ -19,6 +20,7 @@ function App() {
         <Route path='/add-student' element={<AddStudent />} />
         <Route path='/past-attendance' element={<PastAttendance />} />
         <Route path='/mark-attendance' element={<MarkAttendance />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </div>
   );
