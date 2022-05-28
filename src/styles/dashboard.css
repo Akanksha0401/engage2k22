@@ -241,6 +241,25 @@
 .mark-attendance-container .mark-attendance .mark-content .cam-container {
   height: 80vh;
   width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.mark-attendance-container .mark-attendance .mark-content .cam-container video {
+  height: 100%;
+  width: 100%;
+}
+
+.mark-attendance-container .mark-attendance .mark-content .cam-container canvas {
+  position: absolute;
+  height: 80%;
 }
 
 .mark-attendance-container .mark-attendance .mark-content .btn-mark-container {
@@ -296,6 +315,9 @@
     width: 90vw;
   }
   .add-student-container .add-student .add-container .add-form {
+    width: 100%;
+  }
+  .mark-attendance-container .mark-attendance .mark-content .cam-container canvas {
     width: 100%;
   }
 }

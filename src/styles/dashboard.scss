@@ -217,10 +217,20 @@
             .cam-container {
                 height: 80vh;
                 width: 100vw;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
-                video {}
+                video {
+                    height: 100%;
+                    width: 100%;
+                }
 
-                canvas {}
+                canvas {
+                    position: absolute;
+                    // width: 100%;
+                    height: 80%;
+                }
             }
 
             .btn-mark-container {
@@ -288,6 +298,18 @@
 
                 .add-form {
                     width: 100%;
+                }
+            }
+        }
+    }
+
+    .mark-attendance-container {
+        .mark-attendance {
+            .mark-content {
+                .cam-container {
+                    canvas {
+                        width: 100%;
+                    }
                 }
             }
         }
