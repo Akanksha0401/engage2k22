@@ -144,6 +144,12 @@ const MarkAttendance = () => {
                         attendance: num + 1
                     }
                     await set(studentRef, attend)
+                    toast({
+                        title: 'Attendance Marked',
+                        status: 'success',
+                        duration: 5000,
+                        position: 'bottom-right'
+                    })
                 }
             }
         }
@@ -232,7 +238,6 @@ const MarkAttendance = () => {
                 setImageArray(imageArray)
                 // console.log(imageArray)
             })
-            await faceRecog()
             console.log('Fetched Images')
         }
 
@@ -266,6 +271,14 @@ const MarkAttendance = () => {
                         />
                     </div>
                     <div className='btn-mark-container'>
+                        <button
+                            className='btn-mark'
+                            onClick={() => {
+                                await faceRecog()
+                            }}
+                        >
+                            Start/Stop
+                        </button>
                         <button
                             className='btn-mark'
                             onClick={() => {

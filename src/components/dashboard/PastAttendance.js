@@ -17,7 +17,6 @@ const PastAttendance = () => {
                     students.push({ id, ...data[id] })
                 }
                 setStudents(students)
-                console.log(students)
             })
         }
 
