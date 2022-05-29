@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/engage2k22/static/css/main.5c91103f.css",
+    "main.js": "/engage2k22/static/js/main.5cf3a9ab.js",
+    "static/media/login.png": "/engage2k22/static/media/login.fbdf7bac4f9984fb967c.png",
+    "index.html": "/engage2k22/index.html",
+    "main.5c91103f.css.map": "/engage2k22/static/css/main.5c91103f.css.map",
+    "main.5cf3a9ab.js.map": "/engage2k22/static/js/main.5cf3a9ab.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5c91103f.css",
+    "static/js/main.5cf3a9ab.js"
+  ]
+}
