@@ -1,6 +1,6 @@
 # Attendance Tracker
 
-Project for Microsoft Engage.
+Face Recognition attendance tracker that takes your attendance through webcam.
 
 ## Resources
 
@@ -46,6 +46,10 @@ This will download all dependencies into the project folder.
 ## Status
 
 In Progress..
+
+## View Here
+
+(Attendance Tracker)[https://akanksha0401.github.io/engage2k22/]
 
 ## Author
 
