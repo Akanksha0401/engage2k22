@@ -47,10 +47,6 @@ This will download all dependencies into the project folder.
 
 In Progress..
 
-## View Here
-
-[Attendance Tracker](https://akanksha0401.github.io/engage2k22/)
-
 ## Author
 
 [@Akanksha0401](https://github.com/Akanksha0401)
