@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as faceapi from '@vladmandic/face-api'
 import { Link } from 'react-router-dom'
-import { onValue, ref } from 'firebase/database';
+import { onValue, ref, set } from 'firebase/database';
 import { db } from '../../assets/config/config';
 import { useToast } from '@chakra-ui/react';
 
@@ -18,6 +18,7 @@ const MarkAttendance = () => {
     const [imageArray, setImageArray] = useState([])
     const [descriptions, setDescriptions] = useState([])
     const [names, setNames] = useState([])
+    const [nameArray, setNameArray] = useState([])
 
     const toast = useToast()
 
@@ -69,6 +70,7 @@ const MarkAttendance = () => {
     }
 
     const handleVideo = async () => {
+        let names = []
         setInterval(async () => {
             const labeledFaceDescriptors = await loadLabeledImages()
             // console.log(labeledFaceDescriptors)
@@ -94,20 +96,57 @@ const MarkAttendance = () => {
             })
             faceapi.draw.drawDetections(canvasRef.current, resizedDetections)
             // faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections)
-
             const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
-
             results.forEach((result, i) => {
-                // let res = result.toString()
-                // console.log(res)
+                let n = result.label
+                if (n != 'unknown') {
+                    names.push(n)
+                    // setNames(names)
+                    mark(names)
+                }
                 const box = resizedDetections[i].detection.box
                 const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
                 drawBox.draw(canvasRef.current)
-                let names = []
-                names.push(result.toString())
-                // console.log(names)
             })
         }, 100)
+    }
+
+    const mark = (names) => {
+        // console.log(names)
+        let newNames = [...new Set(names)]
+        setNames(newNames)
+        // console.log(newNames)
+    }
+
+    const sendData = async () => {
+        let userId = ''
+        let num = 0
+        // console.log(names)
+        for (let i in names) {
+            for (let j in students) {
+                if (names[i] == students[j].firstName) {
+                    userId = students[j].id
+                    num = students[j].attendance
+                    let fname = students[j].firstName
+                    let lname = students[j].lastName
+                    let em = students[j].email
+                    let im = students[j].images
+                    let lid = students[j].libId
+                    let rno = students[j].rollNo
+                    const studentRef = ref(db, 'Students/' + userId)
+                    const attend = {
+                        firstName: fname,
+                        lastName: lname,
+                        email: em,
+                        images: im,
+                        libId: lid,
+                        rollNo: rno,
+                        attendance: num + 1
+                    }
+                    await set(studentRef, attend)
+                }
+            }
+        }
     }
 
     const triggerVideo = () => {
@@ -152,7 +191,7 @@ const MarkAttendance = () => {
                     console.log('Models loded')
                 })
                 .catch((err) => {
-                    console.log(err);
+                    console.log(err)
                 })
         }
         loadModels()
@@ -196,6 +235,8 @@ const MarkAttendance = () => {
             await faceRecog()
             console.log('Fetched Images')
         }
+
+        // console.log(videoRef.current)
     }, [])
 
     return (
@@ -231,7 +272,15 @@ const MarkAttendance = () => {
                                 triggerVideo()
                             }}
                         >
-                            Start Marking
+                            Start/Stop
+                        </button>
+                        <button
+                            className='btn-mark'
+                            onClick={() => {
+                                sendData()
+                            }}
+                        >
+                            Mark
                         </button>
                         <button
                             className='btn-mark'
@@ -239,7 +288,7 @@ const MarkAttendance = () => {
                                 quitVideo()
                             }}
                         >
-                            Stop Marking
+                            Quit
                         </button>
                     </div>
                 </div>
