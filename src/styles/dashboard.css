@@ -145,7 +145,7 @@
 
 .dash-container .dashboard .dash-right .dash-bottom .dash-content .btn-attend-container .btn-attend {
   border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
   background-color: blue;
   cursor: pointer;
 }
@@ -375,6 +375,8 @@
   }
   .mark-attendance-container .mark-attendance .mark-content .btn-mark-container {
     gap: 1rem;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
   }
 }
 /*# sourceMappingURL=dashboard.css.map */
