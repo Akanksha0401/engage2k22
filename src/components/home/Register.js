@@ -1,5 +1,5 @@
 import Footer from '../home/Footer'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { push, ref } from 'firebase/database'
 import { auth, db } from '../../assets/config/config'
@@ -16,7 +16,6 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('')
 
     const toast = useToast()
-
     const nav = useNavigate()
 
     const register = async () => {
@@ -33,7 +32,6 @@ const Register = () => {
                         password
                     }
                     await push(facultyRef, faculty)
-
                     try {
                         const user = await createUserWithEmailAndPassword(
                             auth,
@@ -91,11 +89,6 @@ const Register = () => {
             })
         }
     }
-
-    useEffect(() => {
-
-    }, [])
-
 
     return (
         <div className='register-container'>
@@ -175,10 +168,6 @@ const Register = () => {
                                     setConfirmPassword(e.target.value)
                                 }} />
                         </div>
-                        {/* <div className='reg-form-group'>
-                            <input type='checkbox' />
-                            <label>Agree to terms and conditions.</label>
-                        </div> */}
                         <div className='btn-reg'>
                             <input
                                 type='submit'

@@ -13,7 +13,6 @@ const Dashboard = () => {
     const [currentFaculty, setCurrentFaculty] = useState({})
 
     const toast = useToast()
-
     const nav = useNavigate()
 
     const logout = async () => {

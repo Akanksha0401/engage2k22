@@ -1,4 +1,4 @@
-import { Box, Image, Text } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { onValue, ref } from 'firebase/database'
 import React, { useEffect, useState } from 'react'

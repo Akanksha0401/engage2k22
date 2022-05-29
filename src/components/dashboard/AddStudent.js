@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import { push, ref } from 'firebase/database'
 import { getDownloadURL, listAll, ref as refStorage, uploadBytes } from 'firebase/storage'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { db, storage } from '../../assets/config/config'
 import { v4 } from 'uuid'
@@ -12,7 +12,6 @@ const AddStudent = () => {
     const [email, setEmail] = useState('')
     const [rollNo, setRollNo] = useState('')
     const [libId, setLibId] = useState('')
-    const [attendance, setAttendance] = useState(0)
     const [image, setImage] = useState(null)
     const [urlList, setUrlList] = useState([])
 
@@ -26,8 +25,6 @@ const AddStudent = () => {
             await uploadBytes(imageRef, image)
                 .then(() => {
                     getDownloadURL(imageRef).then((url) => {
-                        // console.log(url)
-                        // let list = []
                         urlList.push(url)
                         setUrlList(urlList)
                     })

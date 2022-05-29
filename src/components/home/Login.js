@@ -1,4 +1,4 @@
-import { position, useToast } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -9,7 +9,6 @@ const Login = () => {
     const [logPass, setLogPass] = useState('')
 
     const toast = useToast()
-
     const nav = useNavigate()
 
     const login = async () => {
@@ -111,10 +110,6 @@ const Login = () => {
                                     }}
                                 />
                             </div>
-                            {/* <div className='login-chkbox'>
-                                <input type='checkbox' />
-                                <label>Remember Me</label>
-                            </div> */}
                             <div className='btn-login'>
                                 <input
                                     type='submit'
