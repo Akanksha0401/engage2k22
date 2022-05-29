@@ -137,6 +137,7 @@ const MarkAttendance = () => {
                 }
             }
         }
+        setNames('')
     }
 
     const triggerVideo = () => {
