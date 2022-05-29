@@ -277,7 +277,7 @@ const MarkAttendance = () => {
                                 faceRecog()
                             }}
                         >
-                            Start/Stop
+                            Load Dataset
                         </button>
                         <button
                             className='btn-mark'
