@@ -6,13 +6,13 @@ import { getAnalytics } from "firebase/analytics";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCrq8QEByfFR6hDZ0JbmrLk6iPKN9xzRV4",
-    authDomain: "engage2k22.firebaseapp.com",
-    projectId: "engage2k22",
-    storageBucket: "engage2k22.appspot.com",
-    messagingSenderId: "145722244234",
-    appId: "1:145722244234:web:7189121831aba68ffc0173",
-    measurementId: "G-11XVRRFJ6H"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
