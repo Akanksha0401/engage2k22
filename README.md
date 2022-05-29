@@ -31,14 +31,14 @@ Your system must have:
 
 - Press `Ctrl + Shift + ~ ` to open new Terminal window in VS Code.
 
-- Run command in the terminal window.
+- Run this command in the terminal window.
 
 ```bash
     npm i
 ```
 This will download all dependencies into the project folder.
 
-- Run command
+- Now run this command on terminal window.
 ```bash
     npm start
 ```
@@ -49,7 +49,7 @@ In Progress..
 
 ## View Here
 
-(Attendance Tracker)[https://akanksha0401.github.io/engage2k22/]
+[Attendance Tracker](https://akanksha0401.github.io/engage2k22/)
 
 ## Author
 
