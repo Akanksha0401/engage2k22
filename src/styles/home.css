@@ -352,7 +352,7 @@
     padding: 1rem;
   }
   .navbar-container .navbar .nav-items {
-    gap: 1rem;
+    gap: 0.5rem;
   }
   .login-container {
     width: 96vw;

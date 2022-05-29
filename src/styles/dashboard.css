@@ -289,6 +289,44 @@
   background-color: #8181ff;
 }
 
+.past-attendance-container .past-attendance .past-container {
+  max-width: 100vw;
+  padding: 2rem 4rem;
+}
+
+.past-attendance-container .past-attendance .past-container .past-form .past-form-title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.past-attendance-container .past-attendance .past-container .past-form .past-cards {
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  background-color: #0d1117;
+  padding: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.past-attendance-container .past-attendance .past-container .past-form .past-cards .form-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem;
+}
+
+.past-attendance-container .past-attendance .past-container .past-form .past-cards .form-card .form-title {
+  color: yellow;
+}
+
 @media screen and (max-width: 768px) {
   .dash-container .dashboard {
     -webkit-box-orient: vertical;
@@ -323,6 +361,13 @@
   }
   .add-student-container .add-student .add-container .add-form {
     width: 100%;
+  }
+  .past-attendance-container .past-attendance .past-container {
+    padding: 1rem;
+  }
+  .past-attendance-container .past-attendance .past-container .past-form .past-cards {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
   }
   .mark-attendance-container .mark-attendance .mark-content .cam-container canvas {
     width: 100%;

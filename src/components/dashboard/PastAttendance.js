@@ -1,7 +1,30 @@
-import React from 'react'
+import { onValue, ref } from 'firebase/database'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { db } from '../../assets/config/config'
 
 const PastAttendance = () => {
+
+    const [students, setStudents] = useState([])
+
+    useEffect(() => {
+        const getStudent = async () => {
+            const studRef = ref(db, 'Students')
+            await onValue(studRef, (snapshot) => {
+                const data = snapshot.val()
+                let students = []
+                for (let id in data) {
+                    students.push({ id, ...data[id] })
+                }
+                setStudents(students)
+                console.log(students)
+            })
+        }
+
+        getStudent()
+    }, [])
+
+
     return (
         <div className='past-attendance-container'>
             <div className='past-attendance'>
@@ -15,16 +38,45 @@ const PastAttendance = () => {
                         </Link>
                     </div>
                 </div>
-            </div>
-            <div className='past-container'>
-                <div className='past-form'>
-                    <div className='past-form-title'>
-                        Past Attendance
-                    </div>
-                    <div className='past-form-content'>
-                        <div className='past-form-group'>
-                            <label>Select Date</label>
-                            <input type='date' />
+                <div className='past-container'>
+                    <div className='past-form'>
+                        <div className='past-form-title'>
+                            Attendance Details
+                        </div>
+                        <div className='past-form-content'>
+                            {
+                                students.map((student) => {
+                                    return (
+                                        <div className='past-cards'>
+                                            <div className='form-card'>
+                                                <div className='form-title'>
+                                                    Name:
+                                                </div>
+                                                <div className='past-name'>
+                                                    {
+                                                        student.firstName
+                                                    }
+                                                    &nbsp;
+                                                    {
+                                                        student.lastName
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className='form-card'>
+                                                <div className='form-title'>
+                                                    Attendance:
+                                                </div>
+                                                <div className='past-attendance'>
+                                                    {
+                                                        student.attendance
+                                                    }
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                 </div>

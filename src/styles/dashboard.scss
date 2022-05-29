@@ -258,6 +258,44 @@
     }
 }
 
+.past-attendance-container {
+    .past-attendance {
+        .past-container {
+            max-width: 100vw;
+            // min-height: 80vh;
+            padding: 2rem 4rem;
+            // background-color: #fff;
+
+            .past-form {
+                .past-form-title {
+                    text-align: center;
+                    font-size: 1.6rem;
+                    font-weight: 700;
+                }
+
+                .past-cards {
+                    margin: 1rem 0;
+                    border-radius: 0.5rem;
+                    background-color: #0d1117;
+                    padding: 1rem;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .form-card {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+
+                        .form-title {
+                            color: yellow;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 768px) {
     .dash-container {
         .dashboard {
@@ -305,6 +343,20 @@
 
                 .add-form {
                     width: 100%;
+                }
+            }
+        }
+    }
+
+    .past-attendance-container {
+        .past-attendance {
+            .past-container {
+                padding: 1rem;
+
+                .past-form {
+                    .past-cards {
+                        flex-wrap: wrap;
+                    }
                 }
             }
         }
