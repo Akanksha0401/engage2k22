@@ -17,31 +17,47 @@ const MarkAttendance = () => {
     const [labeledImages, setLabeledImages] = useState([])
     const [imageArray, setImageArray] = useState([])
     const [descriptions, setDescriptions] = useState([])
-    // const [img, setImg] = useState()
     const [names, setNames] = useState([])
 
     const toast = useToast()
 
     const faceRecog = async () => {
-        let descriptions = []
-        for (let i in imageArray) {
-            let desc = []
-            let refArray = imageArray[i]
-            // console.log(refArray)
-            for (let j in refArray) {
-                const img = await faceapi.fetchImage(refArray[j])
-                // console.log(img)
-                // console.log(refArray[j])
-                // setImg(img)
-                const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-                desc.push(detections.descriptor)
+        try {
+            let descriptions = []
+            for (let i in imageArray) {
+                let desc = []
+                let refArray = imageArray[i]
+                // console.log(refArray)
+                for (let j in refArray) {
+                    const img = await faceapi.fetchImage(refArray[j])
+                    // console.log(img)
+                    // console.log(refArray[j])
+                    // setImg(img)
+                    const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
+                    desc.push(detections.descriptor)
+                }
+                refArray = []
+                descriptions.push(desc)
+                // console.log(descriptions)
             }
-            refArray = []
-            descriptions.push(desc)
+            setDescriptions(descriptions)
             // console.log(descriptions)
+            if (descriptions != null) {
+                toast({
+                    title: 'Dataset Loaded',
+                    status: 'success',
+                    duration: 5000,
+                    position: 'bottom-right'
+                })
+            }
+        } catch (error) {
+            toast({
+                title: 'Something went wrong!',
+                status: 'error',
+                duration: 5000,
+                position: 'bottom-right'
+            })
         }
-        setDescriptions(descriptions)
-        console.log(descriptions)
     }
 
     const loadLabeledImages = () => {
@@ -131,9 +147,10 @@ const MarkAttendance = () => {
                 await faceapi.nets.faceRecognitionNet.load('/models'),
                 await faceapi.nets.faceExpressionNet.load('/models')
             ])
-                .then(
-                    // playVideo()
-                )
+                .then(() => {
+                    getImages()
+                    console.log('Models loded')
+                })
                 .catch((err) => {
                     console.log(err);
                 })
@@ -176,9 +193,9 @@ const MarkAttendance = () => {
                 setImageArray(imageArray)
                 // console.log(imageArray)
             })
-            faceRecog()
+            await faceRecog()
+            console.log('Fetched Images')
         }
-        getImages()
     }, [])
 
     return (
