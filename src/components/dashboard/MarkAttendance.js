@@ -55,60 +55,18 @@ const MarkAttendance = () => {
                 }
                 setImageArray(imageArray)
                 // console.log(imageArray)
-
+                const lab = ['Elon', 'Peter', 'Steve', 'Tony']
                 return Promise.all([
-                    labels.map(async (label) => {
+                    lab.map(async (l) => {
                         const descriptions = []
-                        for (let i in imageArray) {
-                            let desc = []
-                            let refArray = imageArray[i]
-                            for (let j in refArray) {
-                                // console.log(refArray[j])
-                                const img = await faceapi.fetchImage(refArray[j])
-                                const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-                                desc.push(detections.descriptor)
-                            }
-                            refArray = []
-                            descriptions.push(desc)
+                        for (let i = 1; i <= 3; i++) {
+                            const img = await faceapi.fetchImage(`/public/lab_images/${l}/${i}.jpg`)
+                            const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptors()
+                            descriptions.push(detections.descriptor)
                         }
-                        // console.log(descriptions)
-                        for (let id in descriptions) {
-                            // console.log(descriptions[id])
-                            return new faceapi.LabeledFaceDescriptors(label, descriptions[id])
-                        }
+                        console.log(descriptions)
+                        return new faceapi.LabeledFaceDescriptors(l, descriptions)
                     })
-
-                    // imageArray.map(async (image) => {
-                    //     // console.log(image)
-                    //     const descriptions = []
-                    //     for (let i = 0; i < 3; i++) {
-                    //             const img = await faceapi.fetchImage(image)
-                    // const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-                    // descriptions.push(detections.descriptor)
-                    //     }
-                    //     console.log(descriptions)
-                    // })
-
-                    // labels.map(async (label) => {
-                    // const descriptions = []
-
-                    // const img = await faceapi.fetchImage(image[i])
-                    //     const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-                    //     descriptions.push(detections.descriptor)
-
-                    // }
-                    // console.log(descriptions)
-                    // console.log(label)
-                    // if (descriptions) {
-                    //     toast({
-                    //         title: "Dataset Created!",
-                    //         status: "success",
-                    //         duration: 2000,
-                    //         position: 'bottom-right'
-                    //     })
-                    // }
-
-                    // })
                 ])
             })
         }
