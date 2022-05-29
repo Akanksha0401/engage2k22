@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "https://firebasestorage.googleapis.com/v0/b/engage2k22.appspot.com/o",
-  "homepage": "https://akanksha0401.github.io/engage2k22/",
   "dependencies": {
     "@chakra-ui/react": "^2.1.2",
     "@emotion/react": "^11.9.0",
