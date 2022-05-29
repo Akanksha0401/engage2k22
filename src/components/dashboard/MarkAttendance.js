@@ -274,7 +274,7 @@ const MarkAttendance = () => {
                         <button
                             className='btn-mark'
                             onClick={() => {
-                                await faceRecog()
+                                faceRecog()
                             }}
                         >
                             Start/Stop
