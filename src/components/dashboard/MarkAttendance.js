@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../assets/config/config';
 import { useToast } from '@chakra-ui/react';
-import { async } from '@firebase/util';
 
 const MarkAttendance = () => {
     const videoRef = useRef();
@@ -18,31 +17,37 @@ const MarkAttendance = () => {
     const [labeledImages, setLabeledImages] = useState([])
     const [imageArray, setImageArray] = useState([])
     const [descriptions, setDescriptions] = useState([])
-    const [img, setImg] = useState()
+    // const [img, setImg] = useState()
+    const [names, setNames] = useState([])
 
     const toast = useToast()
 
     const faceRecog = async () => {
+        let descriptions = []
         for (let i in imageArray) {
-            let descriptions = []
+            let desc = []
             let refArray = imageArray[i]
+            // console.log(refArray)
             for (let j in refArray) {
-                let img = await faceapi.fetchImage(refArray[j])
+                const img = await faceapi.fetchImage(refArray[j])
                 // console.log(img)
-                setImg(img)
+                // console.log(refArray[j])
+                // setImg(img)
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-                descriptions.push(detections.descriptor)
+                desc.push(detections.descriptor)
             }
             refArray = []
-            console.log(descriptions)
-            setDescriptions(descriptions)
+            descriptions.push(desc)
+            // console.log(descriptions)
         }
+        setDescriptions(descriptions)
+        console.log(descriptions)
     }
 
     const loadLabeledImages = () => {
         return Promise.all(
-            labels.map(async (label) => {
-                return new faceapi.LabeledFaceDescriptors(label, descriptions)
+            labels.map(async (label, id) => {
+                return new faceapi.LabeledFaceDescriptors(label, descriptions[id])
             })
         )
     }
@@ -50,7 +55,7 @@ const MarkAttendance = () => {
     const handleVideo = async () => {
         setInterval(async () => {
             const labeledFaceDescriptors = await loadLabeledImages()
-            console.log(labeledFaceDescriptors)
+            // console.log(labeledFaceDescriptors)
             const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
 
             const detections = await faceapi
@@ -77,9 +82,14 @@ const MarkAttendance = () => {
             const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
 
             results.forEach((result, i) => {
+                // let res = result.toString()
+                // console.log(res)
                 const box = resizedDetections[i].detection.box
                 const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
                 drawBox.draw(canvasRef.current)
+                let names = []
+                names.push(result.toString())
+                // console.log(names)
             })
         }, 100)
     }
@@ -166,14 +176,9 @@ const MarkAttendance = () => {
                 setImageArray(imageArray)
                 // console.log(imageArray)
             })
-            // const lab = ['Black Widow', 'Captain America', 'Captain Marvel', 'Hawkeye', 'Jim Rhodes', 'Thor', 'Tony Stark']
-            // console.log(labels)
-            // console.log(imageArray[0])
             faceRecog()
         }
-
         getImages()
-        // loadLabeledImages()
     }, [])
 
     return (
