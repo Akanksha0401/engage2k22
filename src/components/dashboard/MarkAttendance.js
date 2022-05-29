@@ -18,7 +18,6 @@ const MarkAttendance = () => {
     const [imageArray, setImageArray] = useState([])
     const [descriptions, setDescriptions] = useState([])
     const [names, setNames] = useState([])
-    const [nameArray, setNameArray] = useState([])
 
     const toast = useToast()
 
@@ -28,22 +27,16 @@ const MarkAttendance = () => {
             for (let i in imageArray) {
                 let desc = []
                 let refArray = imageArray[i]
-                // console.log(refArray)
                 for (let j in refArray) {
                     const img = await faceapi.fetchImage(refArray[j])
-                    // console.log(img)
-                    // console.log(refArray[j])
-                    // setImg(img)
                     const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                     desc.push(detections.descriptor)
                 }
                 refArray = []
                 descriptions.push(desc)
-                // console.log(descriptions)
             }
             setDescriptions(descriptions)
-            // console.log(descriptions)
-            if (descriptions != null) {
+            if (descriptions) {
                 toast({
                     title: 'Dataset Loaded',
                     status: 'success',
@@ -73,9 +66,7 @@ const MarkAttendance = () => {
         let names = []
         setInterval(async () => {
             const labeledFaceDescriptors = await loadLabeledImages()
-            // console.log(labeledFaceDescriptors)
             const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
-
             const detections = await faceapi
                 .detectAllFaces(
                     videoRef.current,
@@ -83,9 +74,7 @@ const MarkAttendance = () => {
                 )
                 .withFaceLandmarks()
                 .withFaceDescriptors()
-
             canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current)
-
             faceapi.matchDimensions(canvasRef.current, {
                 width: videoRef.current.width,
                 height: videoRef.current.height
@@ -95,13 +84,11 @@ const MarkAttendance = () => {
                 height: videoRef.current.height
             })
             faceapi.draw.drawDetections(canvasRef.current, resizedDetections)
-            // faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections)
             const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
             results.forEach((result, i) => {
                 let n = result.label
                 if (n != 'unknown') {
                     names.push(n)
-                    // setNames(names)
                     mark(names)
                 }
                 const box = resizedDetections[i].detection.box
@@ -112,16 +99,13 @@ const MarkAttendance = () => {
     }
 
     const mark = (names) => {
-        // console.log(names)
         let newNames = [...new Set(names)]
         setNames(newNames)
-        // console.log(newNames)
     }
 
     const sendData = async () => {
         let userId = ''
         let num = 0
-        // console.log(names)
         for (let i in names) {
             for (let j in students) {
                 if (names[i] == students[j].firstName) {
@@ -160,11 +144,23 @@ const MarkAttendance = () => {
             playVideo()
         } else {
             videoRef.current.pause()
+            toast({
+                title: 'Video Paused',
+                status: 'success',
+                duration: 5000,
+                position: 'bottom-right'
+            })
         }
     }
 
     const quitVideo = () => {
         window.location.reload()
+        toast({
+            title: 'Camera Closed',
+            status: 'success',
+            duration: 5000,
+            position: 'bottom-right'
+        })
     }
 
     const playVideo = async () => {
@@ -180,6 +176,12 @@ const MarkAttendance = () => {
                 video.srcObject = stream
                 video.play()
                 handleVideo()
+                toast({
+                    title: 'Camera Opened',
+                    status: 'success',
+                    duration: 5000,
+                    position: 'bottom-right'
+                })
             })
     }
 
@@ -194,10 +196,20 @@ const MarkAttendance = () => {
             ])
                 .then(() => {
                     getImages()
-                    console.log('Models loded')
+                    toast({
+                        title: 'Models Loaded',
+                        status: 'success',
+                        duration: 5000,
+                        position: 'bottom-right'
+                    })
                 })
                 .catch((err) => {
-                    console.log(err)
+                    toast({
+                        title: 'Something went wrong!',
+                        status: 'error',
+                        duration: 5000,
+                        position: 'bottom-right'
+                    })
                 })
         }
         loadModels()
@@ -210,23 +222,17 @@ const MarkAttendance = () => {
                 for (let id in data) {
                     students.push({ id, ...data[id] })
                 }
-                // console.log(students)
                 setStudents(students)
-
                 let labels = []
                 for (let id in students) {
                     labels.push(students[id].firstName)
                 }
-                // console.log(labels)
                 setLabels(labels)
-
                 let labeledImages = []
                 for (let id in students) {
                     labeledImages.push(students[id].images)
                 }
-                // console.log(labeledImages)
                 setLabeledImages(labeledImages)
-
                 let imageArray = []
                 for (let i in labeledImages) {
                     let imgArray = []
@@ -236,12 +242,8 @@ const MarkAttendance = () => {
                     imageArray.push(imgArray)
                 }
                 setImageArray(imageArray)
-                // console.log(imageArray)
             })
-            console.log('Fetched Images')
         }
-
-        // console.log(videoRef.current)
     }, [])
 
     return (
